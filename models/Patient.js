@@ -1,8 +1,8 @@
-// patientSchema.js
 const mongoose = require("mongoose");
+const AutoIncrement = require("mongoose-sequence")(mongoose);
 
 const patientSchema = new mongoose.Schema({
-    patient_id: { type: Number, required: true, unique: true },
+    patient_id: { type: Number, unique: true },
     name: { type: String, required: true },
     age: { type: Number, required: true },
     gender: { type: String, required: true },
@@ -11,7 +11,11 @@ const patientSchema = new mongoose.Schema({
     procedure_name: { type: String, required: true },
     surgeon: { type: String, required: true },
     theatre: { type: String, required: true },
-    wound_class: { type: String, enum: ['clean', 'cleanContaminated', 'contaminated', 'dirtyInfected'], required: true },
+    wound_class: { 
+        type: String, 
+        enum: ['clean', 'cleanContaminated', 'contaminated', 'dirtyInfected'], 
+        required: true 
+    },
     pap_given: { type: String, enum: ['yes', 'no'], required: true },
     antibiotics_given: { type: String },
     duration_of_pap: { type: String },
@@ -19,4 +23,5 @@ const patientSchema = new mongoose.Schema({
     event_date: { type: Date }
 });
 
+patientSchema.plugin(AutoIncrement, { inc_field: 'patient_id' });
 module.exports = mongoose.model("Patients", patientSchema);
