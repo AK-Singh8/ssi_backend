@@ -3,7 +3,7 @@ const AutoIncrement = require("mongoose-sequence")(mongoose);
 
 const patientSchema = new mongoose.Schema({
     patient_id: { type: Number, unique: true },
-    email: { type: String, required: true},
+    email: { type: String, required: true },
     name: { type: String, required: true },
     age: { type: Number, required: true },
     gender: { type: String, required: true },
